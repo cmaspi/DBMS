@@ -1,7 +1,7 @@
 import hashlib
 papercsv = open('paper.csv', 'w')
 venuecsv = open('venue.csv', 'w')
-citationscsv = open('citation.csv', 'w')
+citationscsv = open('citations.csv', 'w')
 authorcsv = open('author.csv', 'w')
 writtenbycsv = open('written_by.csv', 'w')
 
