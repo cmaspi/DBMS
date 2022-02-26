@@ -16,6 +16,8 @@ writtenbycsv.write("auth_id#paper_id#rank\n")
 # optional
 # abstract, citations, venue
 
+author_dict = {}
+author_counter = 1
 with open('source.txt') as f:
     title, author, paperId, year = "", "", "", ""
     abstract, venue, citations = "" , "", ""
@@ -41,7 +43,11 @@ with open('source.txt') as f:
             author = line[2:].rstrip()
             names = author.split(',')
             names = [name.strip() for name in names]
-            auth_ids = tuple( hashlib.sha256(name.encode()).hexdigest()[:30] for name in names)
+            # auth_ids = tuple( hashlib.sha256(name.encode()).hexdigest()[:30] for name in names)
+            for name in names:
+                if name not in author_dict.keys():
+                    author_dict[name] = author_counter
+                    author_counter += 1
             first = tuple( name.split(' ')[0] for name in names)
             last = tuple( " ".join(name.split(' ')[1:]) for name in names)
 
@@ -56,8 +62,8 @@ with open('source.txt') as f:
                 venuecsv.write(venue+'#'+paperId+'\n')
             
             for i in range(names.__len__()):
-                authorcsv.write(auth_ids[i]+'#'+first[i]+'#'+last[i]+'\n')
-                writtenbycsv.write(auth_ids[i]+'#'+paperId+'#'+str(i+1)+'\n')
+                authorcsv.write(str(author_dict[names[i]])+'#'+first[i]+'#'+last[i]+'\n')
+                writtenbycsv.write(str(author_dict[names[i]])+'#'+paperId+'#'+str(i+1)+'\n')
             # reseting optional fields or the ones with multiple values
             abstract, venue, citations = "", "", ""
 
