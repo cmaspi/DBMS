@@ -1,4 +1,3 @@
-import hashlib
 papercsv = open('paper.csv', 'w')
 venuecsv = open('venue.csv', 'w')
 citationscsv = open('citations.csv', 'w')
